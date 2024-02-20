@@ -1,0 +1,102 @@
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.wrapper {
+  background-color: black;
+  height: 200px;
+}
+
+.label {
+  font-size: .625rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: +1.3px;
+  margin-bottom: 1rem;
+}
+
+.searchBar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#searchQueryInput {
+  width: 100%;
+  height: 2.8rem;
+  background: #f5f5f5;
+  outline: none;
+  border: none;
+  border-radius: 1.625rem;
+  padding: 0 3.5rem 0 1.5rem;
+  font-size: 1rem;
+}
+
+#searchQuerySubmit {
+  width: 3.5rem;
+  height: 2.8rem;
+  margin-left: -3.5rem;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+#searchQuerySubmit:hover {
+  cursor: pointer;
+}
+
+.header {
+  background-color: #343a40; /* Bootstrap primary color */
+  color: white; /* White text color */
+  padding: 20px 0;
+  margin-bottom: 20px; /* Added margin for spacing */
+}
+.footer {
+  background-color: #343a40; /* Bootstrap dark color */
+  color: white; /* White text color */
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.search-section {
+  margin-top: -20px; /* Adjust top margin for search bar */
+}
+.search-button {
+  background-color: #343a40; /* Bootstrap success color */
+  border-color: #343a40; /* Bootstrap success color */
+}
+.search-button:hover {
+  background-color: #218838; /* Darken color on hover */
+  border-color: #1e7e34; /* Darken color on hover */
+}
+.results-section {
+  background-color: #f8f9fa; /* Light grey background for results */
+  padding: 20px; /* Padding for spacing */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Subtle shadow for depth */
+}
+/* Ensure container is not 100% width to align with Bootstrap's grid */
+.container {
+  width: 100%; /* Set the width of the container to 80% */
+  margin: 0 auto; /* Center the container */
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row; /* 또는 column으로 설정하여 아이템들을 세로로 배치할 수 있습니다. */
+  justify-content: space-around; /* 아이템들 사이의 공간을 균등하게 분배합니다. */
+  align-items: center; /* 아이템들을 중앙에 정렬합니다. */
+  flex-wrap: wrap; /* 필요시 아이템들이 다음 줄로 넘어갈 수 있도록 합니다. */
+}
+
+.flex-item {
+  margin: 10px; /* 아이템 주변의 공간을 추가합니다. */
+  width: 300px; /* 아이템의 너비를 200px로 고정합니다. */
+  height: 100px; /* 아이템의높이를 100px로 고정합니다. */
+  display: flex; /* flex-item 내부의 내용도 flex로 정렬할 수 있습니다. */
+  justify-content: center; /* 내부 내용을 가로 중앙에 정렬합니다. */
+  align-items: center; /* 내부 내용을 세로 중앙에 정렬합니다. */
+  text-align: center; /* 텍스트를 중앙에 정렬합니다. */
+}
