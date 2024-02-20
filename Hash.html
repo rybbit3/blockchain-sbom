@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>File Hash Generator</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>SBOM Generator</h2>
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="fileInput">
+                <label class="custom-file-label" for="fileInput">파일 선택...</label>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" onclick="generateHash()">Generate Hash</button>
+            </div>
+        </div>
+        <p id="hashOutput" class="text-break"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+    const fileName = e.target.files[0].name;
+    const nextSibling = e.target.nextElementSibling
+    nextSibling.innerText = fileName;
+});
+
+function generateHash() {
+    const fileInput = document.getElementById('fileInput');
+    const output = document.getElementById('hashOutput');
+
+    if (!fileInput.files.length) {
+        output.textContent = '파일을 선택해 주세요.';
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const data = event.target.result;
+        crypto.subtle.digest('SHA-256', data).then((hash) => {
+            const hashArray = Array.from(new Uint8Array(hash));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            output.textContent = `파일 해시값: ${hashHex}`;
+        });
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+    </script>
+</body>
+</html>
