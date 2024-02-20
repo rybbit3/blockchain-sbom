@@ -100,3 +100,11 @@ body {
   align-items: center; /* 내부 내용을 세로 중앙에 정렬합니다. */
   text-align: center; /* 텍스트를 중앙에 정렬합니다. */
 }
+
+table {
+  table-layout: auto; /* 또는 fixed, 필요에 따라 */
+}
+
+th, td {
+  min-width: 100px; /* 적절한 최소 너비로 설정 */
+}
