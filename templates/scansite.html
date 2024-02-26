@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Blockchain Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+      body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+      }
+      .main-content {
+          flex-grow: 1;
+      }
+      
+      .stat-card {
+          display: flex;
+          align-items: center;
+          border-right: 1px solid #e2e8f0; /* Tailwind's gray-200 */
+          padding-right: 1rem;
+          margin-right: 1rem;
+      }
+  
+      .stat-card:last-child {
+          border-right: none;
+          padding-right: 0;
+          margin-right: 0;
+      }
+  
+      .stat-icon {
+          /* Use Tailwind's utility classes for bg and text color */
+      }
+  
+      .stat-title {
+          /* Use Tailwind's text-sm and text-gray-600 */
+      }
+  
+      .stat-value {
+          /* Use Tailwind's text-lg */
+      }
+  
+      .stat-change {
+          /* Use Tailwind's text-sm and text-green-500 for positive change */
+      }
+  
+      .stat-subvalue {
+          /* Use Tailwind's text-sm and text-gray-500 */
+      }
+  </style>
+  
+</head>
+<body class="bg-gray-100 font-roboto">
+  <div class="main-content">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white">
+      <div class="container mx-auto py-4 px-6 flex justify-between items-center">
+        <div class="flex justify-start">
+          <img src="../static/img/mnulogo.png" alt="Mnu Logo" style="width: 100px; height: 50px;">
+          <h1 class="text-xl font-bold">MNU scan</h1>
+        </div>
+        <div class="flex justify-end items-center space-x-4">
+          <a href="#" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Home</a>
+          <div class="relative inline-block">
+            <button class="text-white px-3 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring">
+              Blockchain <i class="fas fa-caret-down ml-1"></i>
+            </button>
+            <ul class="absolute hidden text-gray-700 pt-1 right-0">
+              <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Option 1</a></li>
+              <!-- More dropdown items -->
+            </ul>
+          </div>
+          <button class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded">Sign In</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto my-8 px-6">
+        <!-- Search Bar -->
+        <div class="flex bg-white shadow rounded overflow-hidden mb-4">
+            <input type="search" placeholder="Search by Address / Txn Hash / Block / Token / Domain Name" class="flex-grow p-2 text-gray-700">
+            <button class="bg-blue-600 text-white p-2">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Ethereum Stats -->
+    <!-- Ethereum Stats -->
+    <div class="bg-white shadow rounded-lg p-4 flex justify-between items-center mb-4 space-x-6">
+      <!-- ETH Price Card -->
+      <div class="flex items-center space-x-4">
+          <div class="p-2 bg-blue-100 text-blue-600 rounded-full">
+              <i class="fas fa-coins"></i>
+          </div>
+          <div>
+              <div class="text-xs">MNU PRICE</div>
+              <div class="text-lg font-semibold">$3,109.00 @ 0.060254 BTC</div>
+              <div class="text-xs text-green-600">(+2.45%)</div>
+          </div>
+      </div>
+
+      <!-- Transactions Card -->
+      <div class="flex items-center space-x-4">
+          <div class="p-2 bg-blue-100 text-blue-600 rounded-full">
+              <i class="fas fa-sync-alt"></i>
+          </div>
+          <div>
+              <div class="text-xs">TRANSACTIONS</div>
+              <div class="text-lg font-semibold">2,273.68 M (12.9 TPS)</div>
+          </div>
+      </div>
+
+      <!-- Market Cap Card -->
+      <div class="flex items-center space-x-4">
+          <div class="p-2 bg-blue-100 text-blue-600 rounded-full">
+              <i class="fas fa-chart-line"></i>
+          </div>
+          <div>
+              <div class="text-xs">MARKET CAP</div>
+              <div class="text-lg font-semibold">$373,562,794,569.00</div>
+          </div>
+      </div>
+
+      <!-- Last Finalized Block Card -->
+      <div class="flex items-center space-x-4">
+          <div class="p-2 bg-blue-100 text-blue-600 rounded-full">
+              <i class="fas fa-cubes"></i>
+          </div>
+          <div>
+              <div class="text-xs">LAST FINALIZED BLOCK</div>
+              <div class="text-lg font-semibold">19309757</div>
+          </div>
+      </div>
+
+
+
+
+    </div>
+
+        
+        <!-- Blocks and Transactions -->
+        <div class="flex gap-4 mb-4">
+            <!-- Latest Blocks -->
+            <div class="w-1/2 bg-white shadow rounded p-4">
+                <h2 class="text-xl font-bold mb-2">Latest Blocks</h2>
+                <ul id="blocks-list" class="divide-y divide-gray-200">
+                    <!-- Blocks will be loaded here by JavaScript -->
+                </ul>
+                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm mt-2 inline-block">View all blocks →</a>
+            </div>
+
+            <!-- Latest Transactions -->
+            <div class="w-1/2 bg-white shadow rounded p-4">
+                <h2 class="text-xl font-bold mb-2">Latest Transactions</h2>
+                <ul id="transactions-list" class="divide-y divide-gray-200">
+                    <!-- Transactions will be loaded here by JavaScript -->
+                </ul>
+                <a href="#" class="text-blue-600 hover:text-blue-800 text-sm mt-2 inline-block">View all transactions →</a>
+            </div>
+        </div>
+    </main>
+  </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+      <div class="container mx-auto px-6">
+          <!-- Footer content here -->
+      </div>
+    </footer>
+
+    <script>
+        // Example data for blocks and transactions
+        const blocks = [
+            { id: '19309845', recipient: 'Titan Builder', transactions: '131 txns in 12 secs', fee: '0.02701 Eth' },
+            { id: '19309844', recipient: 'beaverbuild', transactions: '187 txns in 12 secs', fee: '0.05706 Eth' },
+            // ... more blocks
+        ];
+
+        const transactions = [
+            { hash: '0xdf5035a47bf6...', from: '0x438981...0BAD5f97', to: '0x73621d...362b2781', value: '0.20192 Eth' },
+            { hash: '0x1a236eff1b40...', from: '0x8A430A...de482271', to: '0x0F5D2F...908cC942', value: '0 Eth' },
+            // ... more transactions
+        ];
+
+        // Function to render blocks
+        function renderBlocks() {
+            const blocksList = document.getElementById('blocks-list');
+            blocksList.innerHTML = blocks.map(block =>
+                `<li class="py-2 flex justify-between">
+                    <span class="text-gray-600">${block.id}</span>
+                    <span>${block.recipient}</span>
+                    <span class="text-gray-500">${block.transactions}</span>
+                    <span class="font-bold">${block.fee}</span>
+                </li>`
+            ).join('');
+        }
+
+        // Function to render transactions
+        function renderTransactions() {
+            const transactionsList = document.getElementById('transactions-list');
+            transactionsList.innerHTML = transactions.map(tx =>
+                `<li class="py-2 flex justify-between">
+                    <span class="text-gray-600 truncate">${tx.hash}</span>
+                    <span class="truncate">${tx.from}</span>
+                    <span class="truncate">${tx.to}</span>
+                    <span class="font-bold">${tx.value}</span>
+                </li>`
+            ).join('');
+        }
+
+        // Initial render
+        renderBlocks();
+        renderTransactions();
+    </script>
+
+</body>
+</html>

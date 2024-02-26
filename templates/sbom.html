@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload SBOM Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-roboto">
+  <header class="bg-blue-900 text-white">
+    <div class="container mx-auto py-4 px-6 flex justify-between items-center">
+      <div class="flex items-center">
+        <img src="../static/img/mnulogo.png" alt="Mnu Logo" class="mr-3" style="width: 100px; height: 50px;">
+        <h1 class="text-xl font-bold">MNU Scan</h1>
+      </div>
+      <nav class="flex items-center space-x-4">
+        <a href="#" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Home</a>
+        <div class="relative inline-block">
+          <button class="text-white px-3 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring">
+            Blockchain <i class="fas fa-caret-down ml-1"></i>
+          </button>
+          <ul class="absolute hidden text-gray-700 pt-1 right-0">
+            <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Option 1</a></li>
+            <!-- More dropdown items -->
+          </ul>
+        </div>
+        <button class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded">Sign In</button>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="flex justify-center items-start min-h-screen">
+      <div class="bg-white p-10 w-3/4 h-3/4 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4">Upload File for SBOM Generation</h2>
+        <input type="file" id="fileInput" class="block w-full text-sm text-gray-900 border rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none mb-4">
+        <button onclick="generateSBOM()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generate SBOM</button>
+        <pre id="sbomOutput" class="mt-4 p-2 bg-gray-100 rounded"></pre>
+      </div>
+  </div>
+
+  <script src="sbomGenerator.js"></script>
+</body>
+</html>
