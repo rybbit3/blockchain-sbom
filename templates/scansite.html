@@ -75,7 +75,7 @@
               <!-- More dropdown items -->
             </ul>
           </div>
-          <button class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded">Sign In</button>
+          <a href="/login" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded inline-block text-center">로그인</a>
         </div>
       </div>
     </header>
@@ -160,6 +160,14 @@
                 <h2 class="text-xl font-bold mb-2">Latest Transactions</h2>
                 <ul id="transactions-list" class="divide-y divide-gray-200">
                     <!-- Transactions will be loaded here by JavaScript -->
+                    {% for i in range(0, block_len) %}
+                    <li class="py-2">
+                        Timestamp: {{ df_scan.loc[i,'timestamp'] }},
+                        Previous Hash: {{ df_scan.loc[i,'previous_hash'] }},
+                        Nonce: {{ df_scan.loc[i,'nonce'] }},
+                        Transactions: <span style="font-size:2px">{{ df_scan.loc[i,'transactions'] }}</span>
+                    </li>
+                    {% endfor %}
                 </ul>
                 <a href="#" class="text-blue-600 hover:text-blue-800 text-sm mt-2 inline-block">View all transactions →</a>
             </div>
@@ -216,7 +224,7 @@
 
         // Initial render
         renderBlocks();
-        renderTransactions();
+        // renderTransactions();
     </script>
 
 </body>
