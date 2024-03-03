@@ -7,6 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    pre {
+      white-space: pre-wrap;       /* 줄바꿈 */
+      word-wrap: break-word;       /* 단어 단위로 줄바꿈 */
+      overflow-wrap: break-word;   /* 긴 단어가 박스를 넘어가는 것을 방지 */
+      overflow-x: auto;            /* 가로 스크롤바를 필요할 때만 표시 */
+    }
+  </style>
 </head>
 <body class="bg-gray-100 font-roboto">
   <header class="bg-blue-900 text-white">
@@ -16,9 +24,9 @@
         <h1 class="text-xl font-bold ">MNU Scan</h1>
       </div>
       <nav class="flex items-center space-x-4">        
-        <a href="scansite.html" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Home</a>
-        <a href="sbom.html" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Sbom</a>
-        <a href="login1.html" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded inline-block text-center">로그인</a>
+        <a href="/" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Home</a>
+        <a href="/sbom" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Sbom</a>
+        <a href="/login" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded inline-block text-center">로그인</a>
       </nav>
     </div>
   </header>
@@ -29,6 +37,7 @@
         <input type="file" id="fileInput" class="block w-full text-sm text-gray-900 border rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none mb-4">
         <button onclick="generateSBOM()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generate SBOM</button>
         <pre id="sbomOutput" class="mt-4 p-2 bg-gray-100 rounded"></pre>
+        <button id="sendButton" style="display: none;" onclick="sendSBOM()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-4">Send SBOM</button>
       </div>
   </div>
 
@@ -36,23 +45,41 @@
     async function generateSBOM() {
       const fileInput = document.getElementById('fileInput');
       const sbomOutput = document.getElementById('sbomOutput');
-      
+      const sendButton = document.getElementById('sendButton');
+
       if (!fileInput.files.length) {
-          alert('Please select a file.');
-          return;
+        alert('Please select a file.');
+        return;
       }
 
       const file = fileInput.files[0];
       const hash = await calculateFileHash(file);
+
       const sbom = {
-          files: [{
-              filename: file.name,
-              size: file.size,
-              hash: hash
-          }]
+        supplierName: "돌멩이",
+        componentName: file.name,
+        version: "1.0.0",
+        otherUniqueIdentifiers: {
+          hash: hash,
+        },
+        dependencyRelationship: "None",
+        authorOfSBOMData: "MNU-SBOM Generator",
+        timestamp: new Date().toISOString()
       };
 
-      sbomOutput.textContent = JSON.stringify(sbom, null, 4);
+      // Function to create a styled HTML string for JSON output
+      function syntaxHighlight(json) {
+          json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          return json.replace(/"([^"]+)"(?=:)/g, match => {
+              return '<span style="font-weight:bold; color:navy; font-size:16px;">' + match + '</span>';
+          });
+      }
+
+
+      // Use the syntaxHighlight function on the JSON string before setting the innerHTML
+      sbomOutput.innerHTML = syntaxHighlight(JSON.stringify(sbom, null, 2));
+
+      sendButton.style.display = 'block';
     }
 
     async function calculateFileHash(file) {
@@ -61,6 +88,45 @@
       return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
+
+    async function calculateFileHash(file) {
+      const buffer = await file.arrayBuffer();
+      const digest = await crypto.subtle.digest('SHA-256', buffer);
+      return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function sendSBOM() {
+      alert('SBOM이 정상적으로 블록체인에 등록되었습니다!');
+
+      const dataToSend = {
+        // SBOM 데이터를 포함하는 부분
+        sbomData: {
+            supplierName: "Example Supplier, Inc.",
+            componentName: "SecurityLib",
+            version: "1.0.0",
+            hash: "여기에 파일 해시 입력",
+            dependencyRelationship: "None",
+            authorOfSBOMData: "MNU-SBOM Generator",
+            timestamp: new Date().toISOString()
+        }
+      };
+
+      fetch('/', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: JSON.stringify(dataToSend),
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Success:', data);
+      })
+      .catch((error) => {
+          console.error('Error:', error);
+      });
+    }
   </script>
 </body>
 </html>

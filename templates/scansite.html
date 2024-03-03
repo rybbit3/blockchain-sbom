@@ -52,7 +52,7 @@
       .stat-subvalue {
           /* Use Tailwind's text-sm and text-gray-500 */
       }
-  </style>
+    </style>
   
 </head>
 <body class="bg-gray-100 font-roboto">
@@ -65,9 +65,9 @@
           <h1 class="text-xl font-bold ">MNU Scan</h1>
         </div>
         <div class="flex justify-end items-center space-x-4">
-          <a href="scansite.html" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Home</a>
-          <a href="sbom.html" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Sbom</a>
-          <a href="login1.html" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded inline-block text-center">로그인</a>
+          <a href="/" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Home</a>
+          <a href="/sbom" class="text-white px-3 py-2 rounded-md hover:bg-blue-800">Sbom</a>
+          <a href="/login" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded inline-block text-center">로그인</a>
         </div>
       </div>
     </header>
@@ -138,7 +138,8 @@
         
         <!-- Blocks and Transactions -->
         <div class="flex gap-4 mb-4">
-            <!-- Latest Blocks -->
+            
+          <!-- Latest Blocks -->
             <div class="w-1/2 bg-white shadow rounded p-4">
                 <h2 class="text-xl font-bold mb-2">Latest Blocks</h2>
                 <ul id="blocks-list" class="divide-y divide-gray-200">
@@ -177,8 +178,8 @@
     <script>
         // Example data for blocks and transactions
         const blocks = [
-            { id: '19309845', recipient: 'Titan Builder', transactions: '131 txns in 12 secs', fee: '0.02701 Eth' },
-            { id: '19309844', recipient: 'beaverbuild', transactions: '187 txns in 12 secs', fee: '0.05706 Eth' },
+            { id: '2', recipient: 'test1', transactions: '131 txns in 12 secs', fee: '0.02701 MNU' },
+            { id: '1', recipient: 'test-to', transactions: '187 txns in 12 secs', fee: '0.05706 MNU' },
             // ... more blocks
         ];
 
