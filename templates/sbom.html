@@ -95,38 +95,40 @@
       return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    function sendSBOM() {
-      alert('SBOM이 정상적으로 블록체인에 등록되었습니다!');
-
-      const dataToSend = {
-        // SBOM 데이터를 포함하는 부분
-        sbomData: {
-            supplierName: "Example Supplier, Inc.",
-            componentName: "SecurityLib",
+    async function sendSBOM() {
+        const sbomOutput = document.getElementById('sbomOutput');
+        // sbomOutput에서 표시된 데이터 대신, 직접 생성된 SBOM 데이터를 사용합니다.
+        const sbomData = {
+            supplierName: "돌멩이",
+            componentName: document.getElementById('fileInput').files[0].name, // 파일 입력에서 파일 이름 추출
             version: "1.0.0",
-            hash: "여기에 파일 해시 입력",
+            otherUniqueIdentifiers: {
+              hash: await calculateFileHash(document.getElementById('fileInput').files[0]), // 파일 해시 계산
+            },
             dependencyRelationship: "None",
             authorOfSBOMData: "MNU-SBOM Generator",
             timestamp: new Date().toISOString()
-        }
-      };
+        };
 
-      fetch('/', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          },
-          body: JSON.stringify(dataToSend),
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log('Success:', data);
-      })
-      .catch((error) => {
-          console.error('Error:', error);
-      });
+        const response = await fetch('/sbom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sbomData), // SBOM 데이터를 JSON 형식으로 변환하여 전송
+        });
+
+        if (response.ok) { // 응답이 성공적이면
+            const result = await response.json();
+            console.log('Success:', result);
+            alert('SBOM이 정상적으로 처리되었습니다!');
+        } else { // 오류 처리
+            const error = await response.text();
+            console.error('Error:', error);
+            alert('SBOM 처리에 실패했습니다.');
+        }
     }
+
   </script>
 </body>
 </html>
