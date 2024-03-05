@@ -56,16 +56,20 @@
       const hash = await calculateFileHash(file);
 
       const sbom = {
-        supplierName: "돌멩이",
-        componentName: file.name,
-        version: "1.0.0",
-        otherUniqueIdentifiers: {
-          hash: hash,
-        },
-        dependencyRelationship: "None",
-        authorOfSBOMData: "MNU-SBOM Generator",
-        timestamp: new Date().toISOString()
-      };
+            supplierName: "돌멩이",
+            componentName: document.getElementById('fileInput').files[0].name, // 파일 입력에서 파일 이름 추출
+            sender: "test_from", // MNU-SBOM 으로 수정
+            recipient: "test_to", // MNU-SBOM 으로 수정
+            amount: 1,
+
+            version: "1.0.0",
+            otherUniqueIdentifiers: {
+              hash: await calculateFileHash(document.getElementById('fileInput').files[0]), // 파일 해시 계산
+            },
+            dependencyRelationship: "None",
+            authorOfSBOMData: "MNU-SBOM Generator",
+            timestamp: new Date().toISOString()
+        };
 
       // Function to create a styled HTML string for JSON output
       function syntaxHighlight(json) {
@@ -101,6 +105,10 @@
         const sbomData = {
             supplierName: "돌멩이",
             componentName: document.getElementById('fileInput').files[0].name, // 파일 입력에서 파일 이름 추출
+            sender: "test_from", // MNU-SBOM 으로 수정
+            recipient: "test_to", // MNU-SBOM 으로 수정
+            amount: 1,
+
             version: "1.0.0",
             otherUniqueIdentifiers: {
               hash: await calculateFileHash(document.getElementById('fileInput').files[0]), // 파일 해시 계산
